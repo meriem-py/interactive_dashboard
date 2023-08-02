@@ -7,7 +7,12 @@ import plotly.express as px
     
 st.set_page_config(page_title="KPIs du réseau mobile",
                    page_icon=":bar_chart:")
-   
+
+ 
+image_urls = ["https://aujourdhui.ma/wp-content/uploads/2020/05/orange.jpg"]  # Image URLs ("url","url",..)
+for url in image_urls:
+    st.sidebar.image(url, use_column_width=True)
+ 
    
 def load_excel_data(uploaded_file):
     df = pd.read_excel(uploaded_file)
