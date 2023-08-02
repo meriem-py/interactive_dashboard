@@ -1,0 +1,64 @@
+<!-- style.html -->
+<style>
+    /* Set background image and properties */
+    body {
+      background-image: url("https://example.com/background_image.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+    }
+  
+    /* Slideshow container */
+    .slideshow-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+  
+    /* Hide all slides by default */
+    .mySlides {
+      display: none;
+    }
+  
+    /* Fading animation */
+    .fade {
+      animation: fade 3s ease-in-out infinite;
+    }
+  
+    @keyframes fade {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+  </style>
+  
+  <div class="slideshow-container">
+    <div class="mySlides fade">
+      <img src="https://boursenews.ma/uploads/actualites/6290e2b295623_6290de696f440_orange%20maroc.png.crdownload" style="width: 350px">
+    </div>
+    <div class="mySlides fade">
+      <img src="https://aujourdhui.ma/wp-content/uploads/2020/05/orange.jpg" style="width: 350px">
+    </div>
+    <div class="mySlides fade">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmyCh17U2PZ9mMcxe4YYWALaPA932QA_S4j8YYc33iHVjmq3Zfyme5KxPqVhfAqXpOOVk&usqp=CAU" style="width: 350px">
+      </div>    
+  </div>
+  <script>
+    var slideIndex = 0;
+    showSlides();
+  
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}
+      slides[slideIndex-1].style.display = "block";
+      setTimeout(showSlides, 3000); // Change slide every 3 seconds
+    }
+  </script>

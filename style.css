@@ -1,0 +1,32 @@
+/* style.css */
+body {
+    background-image: url("https://aujourdhui.ma/wp-content/uploads/2020/05/orange.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+  }
+  
+  .slideshow-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 350px;
+    z-index: -1;
+  }
+  
+  /* Hide all slides by default */
+  .mySlides {
+    display: none;
+  }
+  
+  /* Fading animation */
+  .fade {
+    animation: fade 3s ease-in-out infinite;
+  }
+  
+  @keyframes fade {
+    0%, 100% { opacity: 0; }
+    20%, 80% { opacity: 1; }
+  }

@@ -1,0 +1,44 @@
+def main():
+    # Page configuration
+    st.set_page_config(layout="wide")
+
+    # Sidebar
+    st.sidebar.title("Column Options")
+    uploaded_file = st.sidebar.file_uploader("Upload Excel File", type=["xls", "xlsx"])
+
+    if uploaded_file is not None:
+        df = load_excel_data(uploaded_file)
+
+        # Get a list of column names from the DataFrame
+        column_options = df.columns.tolist()
+
+        st.sidebar.subheader("Select Columns:")
+        selected_columns = st.sidebar.multiselect("Columns", column_options)
+
+        # Time range selection
+        st.sidebar.subheader("Select Time Range:")
+        start_time = st.sidebar.date_input("Start Date")
+        end_time = st.sidebar.date_input("End Date")
+
+        # Filter data based on selected columns and time range
+        filtered_df = df[selected_columns]
+        filtered_df = filtered_df[(df.index >= start_time) & (df.index <= end_time)]
+
+        # Plotting section
+        st.header("Data Dashboard")
+        st.write("Selected Columns:", selected_columns)
+        st.write("Time Range:", start_time, "to", end_time)
+
+        # You can create and display the plots or other dashboard components here
+        # For example, you can use Plotly Express to create multiple plots based on the selected columns
+        # and display them using st.plotly_chart() or any other visualization library as per your needs.
+
+        # Here's a simple example with a scatter plot:
+        if not filtered_df.empty:
+            for column in selected_columns:
+                fig = px.scatter(filtered_df, x=filtered_df.index, y=column, title=f"{column} over Time")
+                st.plotly_chart(fig)
+
+
+if __name__ == "__main__":
+    main()
