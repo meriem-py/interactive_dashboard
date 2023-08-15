@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
+import openpyxl
 
     # Configuration de la page
     
@@ -48,10 +48,15 @@ def dashboard():
         if not selected_columns_y:
             st.sidebar.warning("Veuillez sélectionner au moins un KPI.")
             st.stop()  # Stop execution if no column is selected!
+        
 
         # Select axis des x column (first column named "DATE/TIME")
         x_column = df.columns[0]
-
+        if selected_columns_y:
+            for selected_column_y in selected_columns_y:
+              fig = px.line(df, x=x_column, y=selected_column_y, title=f"Courbe de {selected_column_y} en fonction de {x_column}")
+              st.subheader(f"Courbe de {selected_column_y} en fonction de {x_column}")
+              st.plotly_chart(fig)
                 # Allow the user to create another graph with custom x and y axe
         st.sidebar.subheader("Créer un graphe supplémentaire:")
         x_column_suppl = st.sidebar.selectbox("Sélectionner le KPI 1", column_options)
@@ -73,7 +78,15 @@ def dashboard():
             # Include other columns corresponding to the selected y-axis value
             other_columns = df.columns.difference(selected_columns_y + [x_column])
             st.write(filtered_df[[x_column] + selected_columns_y + list(other_columns)])
-
+        # Bouton pour ajouter un nouveau graphique
+        st.sidebar.subheader("Ajouter un graphique")
+        additional_x_column = st.sidebar.selectbox("Sélectionner le KPI pour l'axe x", column_options)
+        additional_y_column = st.sidebar.selectbox("Sélectionner le KPI pour l'axe y", column_options)
+    
+        if additional_x_column and additional_y_column:
+            additional_fig = px.line(df, x=additional_x_column, y=additional_y_column, title=f"Courbe de {additional_y_column} en fonction de {additional_x_column}")
+            st.subheader(f"Courbe de {additional_y_column} en fonction de {additional_x_column}")
+            st.plotly_chart(additional_fig)
         # Allow the user to afficher les top KPIs based on selected columns
         st.sidebar.subheader("Les TOP KPIs:")
         top_kpis = st.sidebar.number_input("Nombre de TOP KPIs", min_value=1, max_value=len(df.columns)-1, value=5)
